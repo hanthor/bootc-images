@@ -1,5 +1,5 @@
 FROM quay.io/centos-bootc/centos-bootc:stream10 as imagectl
-FROM quay.io/almalinuxorg/10-base:10 as repos
+FROM quay.io/almalinuxorg/10-kitten-base:10-kitten as repos
 
 RUN dnf install -y \
     podman \
@@ -12,7 +12,7 @@ COPY --from=imagectl /usr/share/doc/bootc-base-imagectl/ /usr/share/doc/bootc-ba
 COPY --from=imagectl /usr/libexec/bootc-base-imagectl /usr/libexec/bootc-base-imagectl
 RUN chmod +x /usr/libexec/bootc-base-imagectl
 
-COPY 10/almalinux-10.yaml /usr/share/doc/bootc-base-imagectl/manifests/
+COPY 10-kitten/almalinux-10-kitten.yaml /usr/share/doc/bootc-base-imagectl/manifests/
 
 
 RUN /usr/libexec/bootc-base-imagectl build-rootfs --reinject --manifest=almalinux-10-kitten /target-rootfs
